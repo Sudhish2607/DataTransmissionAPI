@@ -1,19 +1,19 @@
 <?php
 header("Content-Type:application/json");
-require "data.php";
-
-if(!empty($_GET['name']))
+require "app/smc/action/actionCenter.php";
+require "app/smc/security/dbGateway.php";
+if(!empty($_GET['command']))
 {
-    $name=$_GET['name'];
-    $price = get_price($name);
-    
+    $command=$_GET['command'];
+    $query = construct_query($command);
+    $data = get_data($query, $command);
     if(empty($price))
     {
-        response(200,"Product Not Found",NULL);
+        response(200,"Data Not Found",NULL);
     }
     else
     {
-        response(200,"Product Found",$price);
+        response(200,"Data Found",$data);
     }
     
 }
