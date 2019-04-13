@@ -27,13 +27,15 @@ class Steganography:
         :param secret_text: contains the secret text to be hidden in the image
         :return:    directory of the output file
         """
+        print('level2:done' )
         snapshot_file = open(self.secret_text_file_path, "r+")
         secret_text = snapshot_file.readline()
         snapshot_file.close()
         steganographic_image_object = lsb.hide(self.input_image_file_path, secret_text)
         steganographic_image_object.save(self.steganographic_image_file_path)
-#         os.remove(self.secret_text_file_path)
+        os.remove(self.secret_text_file_path)
 #         os.remove(self.input_image_file_path)
+        print('level2:done' )
         return self.steganographic_image_file_path
 
 
@@ -45,10 +47,10 @@ class Steganography:
         :return:    revealed secret text
         """
         decrypted_secret_text = lsb.reveal(self.steganographic_image_file_path)
-        snapshot_file = open(self.steganographic_image_file_path[:len(self.steganographic_image_file_path) - 4], "w")
+        snapshot_file = open(self.decrypted_secret_text, "w")
         snapshot_file.write(decrypted_secret_text)
         snapshot_file.close()
-#         os.remove(self.steganographic_image_file_path)
+        os.remove(self.steganographic_image_file_path)
         return decrypted_secret_text
 
 
@@ -60,14 +62,13 @@ def main():
         input_image_file_path = sys.argv[1]
         steganographic_image_file_path = sys.argv[2]
         secret_text_file_path = sys.argv[3]
+        operation = sys.argv[4]
         level2 = Steganography(input_image_file_path, steganographic_image_file_path, secret_text_file_path + ".smc")
         level2 = Steganography(input_image_file_path, steganographic_image_file_path, secret_text_file_path + ".smc")
-        level2.encrypt()
-#         print('Done'+secret_text_file_path)
-#         obj = Steganography()
-#         obj.encrypt()
-#         revealed_secret_text = level2.decrypt()
-        print('done')
+        if operation == "encrypt":
+            level2.encrypt()
+        elif operation == "decrypt":
+            level2.decrypt()
 
 
 if __name__ == "__main__":
