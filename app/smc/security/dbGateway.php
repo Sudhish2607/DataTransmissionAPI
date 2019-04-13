@@ -36,8 +36,9 @@ function get_data($query, $parse)
     fwrite($snapshot, $data);
     fclose($snapshot);
     
-    $level1 = `python level_1_ceasar.py "snapshot.txt"`;
-    $python = `python level_2_steganography.py "./initialImage.JPG" "./imageToTransfer.png" "snapshot.txt"`;
+    $level1 = `python level_1_ceasar.py "snapshot.txt" "encrypt"`;
+    $level2 = `python level_2_steganography.py "./initialImage.JPG" "./imageToTransfer.png" "snapshot.txt" "encrypt"`;
+    $level3 = `python level_3_aes.py "encrypt" "./imageToTransfer.png"`;
     
     /* Free statement and connection resources. */
     sqlsrv_free_stmt($statement_constr);

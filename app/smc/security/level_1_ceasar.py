@@ -67,7 +67,7 @@ class CeasarCipher:
         snapshot_file.write(encrypted_message)
         snapshot_file.close()
 #         os.remove(secret_text_file_path)
-
+        print('level1:', encrypted_message,"\n\n")
 
         return encrypted_message
 
@@ -142,9 +142,13 @@ class CeasarCipher:
 
 def main():
     file_name = sys.argv[1]
+    operation = sys.argv[2]
 #     print('file_name:', file_name)
-    ceas = CeasarCipher()
-    print(ceas.encryption(file_name))
+    level1 = CeasarCipher()
+    if operation == "encrypt":
+        level1.encryption(file_name)
+    elif operation == "decrypt":
+        level1.encryption(file_name)
     # print('Encrypted_message file_name:', file_name)
 #     decrypted_message = ceas.decryption(file_name)
 #     print('Decrypted message:', decrypted_message)
